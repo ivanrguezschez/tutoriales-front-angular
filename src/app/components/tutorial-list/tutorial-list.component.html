@@ -1,0 +1,30 @@
+<div class="list row">
+    <div class="col-md-12">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Buscar por título" [(ngModel)]="title"/>
+            <div class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary" (click)="searchTitle()">
+                    Buscar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4>Lista Tutoriales</h4>
+        <ul class="list-group mb-4">
+            @for (tutorial of tutoriales; track tutorial; let i = $index) {
+                <li class="list-group-item" [class.active]="i == currentIndex" (click)="setActiveTutorial(tutorial, i)">
+                    {{ tutorial.title }}
+                </li>
+            }
+        </ul>
+  
+        <button type="button" class="btn btn-danger" (click)="removeAllTutorials()">
+            Borrar Todos
+        </button>
+    </div>
+    <div class="col-md-6">
+        <app-tutorial-detail [viewMode]="true" [currentTutorial]="currentTutorial"></app-tutorial-detail>
+    </div>
+</div>
+  

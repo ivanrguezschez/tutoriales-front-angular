@@ -1,0 +1,67 @@
+<!--@if (viewMode; else editable) {-->
+@if (viewMode) {    
+    <div>
+        @if (currentTutorial.id) {
+            <div>
+                <h4>Tutorial</h4>
+                <div>
+                    <label><strong>Título:</strong></label> {{ currentTutorial.title }}
+                </div>
+                <div>
+                    <label><strong>Descripción:</strong></label> {{ currentTutorial.description }}
+                </div>
+                <div>
+                    <label><strong>Estado:</strong></label> {{ currentTutorial.published ? "Publicado" : "Pendiene" }}
+                </div>
+                <a class="btn btn-warning mt-4" routerLink="/tutoriales/{{ currentTutorial.id }}">Editar</a>
+            </div>
+        }
+        @if (!currentTutorial.id) {
+            <div>
+                <br />
+                <p>Por favor pulse sobre un Tutorial...</p>
+            </div>
+        }
+    </div>
+} @else {
+    @if (currentTutorial.id) {
+        <div class="edit-form">
+            <h4>Tutorial</h4>
+            <form class="mb-4">
+                <div class="form-group mb-2">
+                    <label for="title">Titulo</label>
+                    <input type="text" class="form-control" id="title" name="title" [(ngModel)]="currentTutorial.title" />
+                </div>
+                <div class="form-group mb-2">
+                    <label for="description">Descripción</label>
+                    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="currentTutorial.description" />
+                </div>
+                <div class="form-group">
+                    <label><strong>Estado:</strong></label>
+                    {{ currentTutorial.published ? "Publicado" : "Pendiente" }}
+                </div>
+            </form>
+            @if (currentTutorial.published) {
+                <button class="btn btn-primary me-2" (click)="updatePublished(false)">
+                    Despublicar
+                </button>
+            } @else {
+                <button class="btn btn-primary me-2" (click)="updatePublished(true)">
+                    Publicar
+                </button>
+            }
+            <button class="btn btn-danger me-2" (click)="deleteTutorial()">
+                Borrar
+            </button>
+            <button type="submit" class="btn btn-success" (click)="updateTutorial()">
+                Actualizar
+            </button>
+            <p class="py-4">{{ message }}</p>
+        </div>
+    } @else {
+        <div>
+            <br />
+            <p>No se puede acceder a este Tutorial...</p>
+        </div>
+    }
+}
